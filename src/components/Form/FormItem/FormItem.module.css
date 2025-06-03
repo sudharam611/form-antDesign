@@ -1,0 +1,195 @@
+.form-item {
+  margin-bottom: 1.5rem;
+}
+.form-item-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.form-item-horizontal .form-label {
+  /* width: 150px; */
+  margin-right: 1rem;
+  text-align: right;
+}
+
+.form-item-vertical .form-label {
+  display: block;
+  margin-bottom: 1rem;
+}
+.form-item-inline {
+  display: flex;
+  align-items: center;
+}
+
+.form-item-inline .form-label {
+  width: 100px !important;
+  margin-right: 0.5rem;
+}
+.form-label {
+  /* margin-top: 5px; */
+  /* width: 150px; */
+  display: inline-block;
+  vertical-align: top;
+
+  /* margin-left: 0; */
+}
+.label-nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.label-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+}
+.input-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  /* margin-bottom: 10px; */
+}
+.form-item-horizontal .input-field-wrapper {
+  flex: 1;
+}
+.input-wrapper-with-icon {
+  position: relative;
+}
+.render-children-section {
+  width: 100%;
+}
+.render-children-section > div {
+  width: 100% !important;
+}
+
+.form-input {
+  /* flex: 1; */
+  /* padding: 8px 6px; */
+  /* border-radius: 8px;
+  border: 1px solid #ccc; */
+  outline: none;
+  /* margin-bottom: 20px; */
+}
+.small {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+.default {
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+.large {
+  padding: 12px 16px;
+  font-size: 1.2rem;
+}
+.outlined {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.borderless {
+  border: none;
+  background-color: #fff;
+}
+.underlined {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+}
+.filled {
+  border: 1px solid transparent;
+  background-color: #fff;
+}
+.filled:focus {
+  border: 1px solid #007bff;
+  background-color: #fff;
+  border-radius: 8px;
+  outline: none;
+}
+.form-input-success {
+  border: 1px solid green;
+}
+.form-input-error {
+  border: 1px solid red;
+}
+.form-input-warning {
+  border: 1px solid orange;
+}
+.form-input-validating {
+  border: 1px solid gray;
+}
+
+.input-with-icon {
+  padding-left: 30px;
+}
+
+.prefix-icon {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+}
+.help-text {
+  font-size: 0.75rem;
+  color: #faad14;
+  min-height: 1rem;
+}
+.extra-text {
+  font-size: 0.7rem;
+  min-height: 1rem;
+  color: #007bff;
+}
+.input-warning {
+  border-color: orange;
+  color: #faad14;
+  font-size: 0.7rem;
+  min-height: 1rem;
+}
+.input-error {
+  border-color: red;
+  font-size: 0.7rem;
+  color: red;
+  min-height: 1rem;
+}
+.radio {
+  display: flex;
+  gap: 15px;
+}
+.radio-input {
+  margin-left: 10px;
+}
+.required-asterisk {
+  color: red;
+  margin-right: 5px;
+}
+.optional-text {
+  font-size: 0.7rem;
+  margin-right: 5px;
+}
+
+.feedback-icon {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+input:disabled {
+  border: 1px solid #ddd;
+}
+input:disabled::placeholder {
+  color: #ccc;
+}
+@media screen and (max-width: 800px) {
+  .form-label {
+    width: 200px !important;
+    text-align: left !important;
+  }
+  .form-item-horizontal .form-label {
+    text-align: initial !important;
+    margin-bottom: 1rem;
+  }
+  .form-item-horizontal {
+    /* display: flex; */
+    flex-direction: column !important;
+    align-items: initial !important;
+  }
+}

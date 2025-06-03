@@ -1,0 +1,10 @@
+.heading {
+  text-align: center;
+  font-size: 1rem;
+}
+.description {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 25px;
+}

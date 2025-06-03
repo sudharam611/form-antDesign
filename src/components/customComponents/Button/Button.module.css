@@ -1,0 +1,19 @@
+.button-item {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.primary {
+  color: white;
+  background-color: #007bff;
+}
+.secondary {
+  background-color: transparent;
+  border: 1px solid #ccc;
+}
+.tertiary {
+  border: none;
+  color: #007bff;
+  background-color: transparent;
+}

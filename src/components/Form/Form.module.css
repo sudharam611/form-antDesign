@@ -1,0 +1,17 @@
+.form-layout-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.disable-form {
+  margin-bottom: 25px;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .form-layout-inline {
+    gap: 0rem;
+    flex-direction: column;
+  }
+}

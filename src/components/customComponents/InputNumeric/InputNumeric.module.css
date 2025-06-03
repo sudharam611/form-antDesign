@@ -1,0 +1,22 @@
+.input-number-field {
+  width: 40%;
+}
+.form-input {
+  outline: none;
+}
+.default {
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+.form-input-success {
+  border: 1px solid green;
+}
+.form-input-error {
+  border: 1px solid red;
+}
+.form-input-warning {
+  border: 1px solid orange;
+}
+.form-input-validating {
+  border: 1px solid gray;
+}

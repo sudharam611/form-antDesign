@@ -22,7 +22,6 @@ const PrimeNumberForm = () => {
     };
   };
   const handleNumberChange = (value) => {
-    console.log("Handle", value);
     if (value === "") {
       setNumber({
         value: "",

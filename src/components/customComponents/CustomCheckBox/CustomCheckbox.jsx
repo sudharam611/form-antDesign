@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./CustomCheckbox.module.css";
+import PropTypes from "prop-types";
+
 const CustomCheckbox = ({
   checked,
   onChange,
@@ -8,9 +10,7 @@ const CustomCheckbox = ({
   name,
   id,
 }) => {
-  // console.log(checked);
   const checkboxId = id || name;
-
   return (
     <div className={styles["checkbox-section"]}>
       <label htmlFor={checkboxId} className={styles["checkbox-label"]}>
@@ -28,5 +28,12 @@ const CustomCheckbox = ({
     </div>
   );
 };
-
+CustomCheckbox.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  children: PropTypes.node,
+  name: PropTypes.string,
+  id: PropTypes.string,
+};
 export default CustomCheckbox;

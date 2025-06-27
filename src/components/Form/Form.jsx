@@ -5,8 +5,10 @@ import React, {
   useRef,
   useState,
 } from "react";
-import useForm from "./../../hook/useForm";
+import useForm from "../../hooks/useForm";
 import styles from "./Form.module.css";
+import PropTypes from "prop-types";
+
 const FormContext = createContext();
 
 export const useFormContext = () => useContext(FormContext);
@@ -30,24 +32,29 @@ const Form = ({
   wrapperCol = { span: 16 },
   labelAlign = "right",
 }) => {
-  //console.log(labelAlign);
-  //console.log("in Form", validateTrigger);
-  //   console.log(defaultValues);
-  //   console.log(disabled);
-  //console.log(validateMessages);
-
   const formFieldsRef = useRef([]);
   const form = useForm(initialValues);
   const [isDisabled, setIsDisabled] = useState(disabledProp);
 
+  useEffect(() => {
+    if (form && defaultValues) {
+      form.setDefaultValues(defaultValues);
+    }
+  }, [form, defaultValues]);
+
+  useEffect(() => {
+    setIsDisabled(disabledProp);
+  }, [disabledProp]);
+
   const registerField = (field) => {
     const existingIndex = formFieldsRef.current.findIndex(
-      (f) => f.name === field.name
+      (formField) => formField.name === field.name
     );
 
     const fieldData = {
       ...field,
-      dependencies: field.dependencies || [], // ✅ Store dependencies as empty array if not provided
+      ref: field.ref || React.createRef(),
+      dependencies: field.dependencies || [],
       rules: field.rules || [],
       validateFirst: field.validateFirst || false,
     };
@@ -57,10 +64,17 @@ const Form = ({
     } else {
       formFieldsRef.current.push(fieldData);
     }
+    return () => {
+      formFieldsRef.current = formFieldsRef.current.filter(
+        (formField) => formField.name !== field.name
+      );
+    };
   };
 
   const validateField = (name, value, formValues) => {
-    const field = formFieldsRef.current.find((f) => f.name === name);
+    const field = formFieldsRef.current.find(
+      (formField) => formField.name === name
+    );
     if (!field) return { isValid: true, error: null };
 
     let isValid = true;
@@ -108,7 +122,6 @@ const Form = ({
         if (field.validateFirst) break;
       }
     }
-    //console.log(newError);
     return { isValid, error: newError };
   };
 
@@ -125,7 +138,6 @@ const Form = ({
       if (error) {
         errors[field.name] = error;
       }
-      //console.log(error);
       if (!fieldValid && !error?.warningOnly) {
         isValid = false;
       }
@@ -135,36 +147,23 @@ const Form = ({
       onFinish?.(form.formValues);
     } else {
       if (scrollToFirstError) {
-        console.log(scrollToFirstError);
         const firstErrorFieldName = Object.keys(errors)[0];
-        console.log("Error", form.errors);
         if (firstErrorFieldName) {
-          const firstFieldElement = document.querySelector(
-            `[name="${firstErrorFieldName}"]`
+          const errorField = formFieldsRef.current.find(
+            (field) => field.name === firstErrorFieldName
           );
 
-          if (firstFieldElement) {
-            firstFieldElement.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-            firstFieldElement.focus();
+          const node = errorField?.ref?.current;
+
+          if (node) {
+            node.scrollIntoView({ behavior: "smooth", block: "center" });
+            node.focus();
           }
         }
       }
       onFinishFailed?.(form.errors);
     }
   };
-
-  useEffect(() => {
-    if (form && defaultValues) {
-      form.setDefaultValues(defaultValues);
-    }
-  }, [form, defaultValues]);
-
-  useEffect(() => {
-    setIsDisabled(disabledProp);
-  }, [disabledProp]);
 
   return (
     <>
@@ -206,6 +205,40 @@ const Form = ({
       </FormContext.Provider>
     </>
   );
+};
+
+Form.propTypes = {
+  children: PropTypes.node.isRequired,
+  initialValues: PropTypes.object,
+  onFinish: PropTypes.func,
+  onFinishFailed: PropTypes.func,
+  disabled: PropTypes.bool,
+  layout: PropTypes.oneOf(["horizontal", "vertical", "inline"]),
+  variant: PropTypes.oneOf(["outlined", "filled", "standard"]),
+  size: PropTypes.oneOf(["small", "default", "large"]),
+  requiredMark: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(["optional", "default"]),
+    PropTypes.shape({
+      type: PropTypes.oneOf(["customize"]).isRequired,
+      render: PropTypes.func,
+    }),
+  ]),
+  defaultValues: PropTypes.object,
+  labelWrap: PropTypes.bool,
+  scrollToFirstError: PropTypes.bool,
+  validateMessages: PropTypes.shape({
+    required: PropTypes.string,
+    validator: PropTypes.string,
+  }),
+  colon: PropTypes.bool,
+  labelCol: PropTypes.shape({
+    span: PropTypes.number,
+  }),
+  wrapperCol: PropTypes.shape({
+    span: PropTypes.number,
+  }),
+  labelAlign: PropTypes.oneOf(["left", "right"]),
 };
 
 export default Form;

@@ -9,7 +9,6 @@ import Tag from "./components/customComponents/Tag/Tag";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import residences from "./data/residences";
-import { Link } from "react-router-dom";
 import {
   Cascader,
   Checkbox,
@@ -1137,8 +1136,6 @@ const App = () => {
           <FormItem
             name="dob"
             label="Date of Birth"
-            // getValueProps={(value) => ({ value: value ? dayjs(value) : null })}
-            // normalize={(value) => (value ? value.valueOf() : null)}
             getValueProps={(value) => ({
               value: value && dayjs(Number(value)),
             })}
